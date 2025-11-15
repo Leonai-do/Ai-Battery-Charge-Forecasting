@@ -1,0 +1,5 @@
+{
+  "name": "AI Battery Charge Forecaster",
+  "description": "An intelligent UPS battery runtime forecaster that uses historical data and AI to predict battery performance, estimate remaining runtime, and provide insightful event summaries.",
+  "requestFramePermissions": []
+}
