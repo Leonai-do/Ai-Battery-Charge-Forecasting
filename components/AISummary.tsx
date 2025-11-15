@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import { getGeminiSummary } from '../services/geminiService';
 import { ProcessedLogEntry, Settings, Summary } from '../types';

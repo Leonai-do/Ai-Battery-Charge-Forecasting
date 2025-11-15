@@ -1,19 +1,18 @@
 import { Settings, LogEntry } from './types';
 
-// SoC Lookup Table: [Voltage, SoC %] - Updated based on user-provided chart for a car battery.
+// SoC Lookup Table: [Voltage, SoC %] - Updated based on user-provided flooded lead-acid chart.
 export const VOLTAGE_SOC_MAP: [number, number][] = [
-    [10.0, 0],    // 0% Charged
-    [11.7, 25],   // 25% Charged
-    [12.1, 50],   // 50% Charged
-    [12.35, 75],  // Interpolated for smoother curve
-    [12.6, 100],  // Fully Charged
+    [11.59, 0],   [11.63, 10],  [11.76, 20],  [11.87, 30],  [11.97, 40],
+    [12.07, 50],  [12.18, 60],  [12.29, 70],  [12.41, 80],  [12.53, 90],
+    [12.64, 100]
 ];
+
 
 export const DEFAULT_SETTINGS: Settings = {
     batteryCapacityAh: 80,
     nominalVoltage: 12,
     upsRatedW: 500,
-    minVoltage: 10.0, // Updated to match the 0% point from the new SOC map.
+    minVoltage: 11.59, // Updated to match the 0% point from the new SOC map.
     batteryHealth: 100,
     chargeVoltageCutoff: 13.8,
 };

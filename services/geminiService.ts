@@ -1,4 +1,3 @@
-
 import { GoogleGenAI } from "@google/genai";
 import { Settings, Summary, ProcessedLogEntry } from '../types';
 

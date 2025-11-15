@@ -8,6 +8,7 @@ import AISummary from './components/AISummary';
 import DataLog from './components/DataLog';
 import ChargeChart from './components/ChargeChart';
 import DischargeChart from './components/DischargeChart';
+import SoCReferenceChart from './components/SoCReferenceChart';
 
 const App: React.FC = () => {
     const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
@@ -84,6 +85,8 @@ const App: React.FC = () => {
                     onDeleteRow={handleDeleteRow}
                     onUpdateRow={handleLogUpdate}
                 />
+
+                <SoCReferenceChart currentVoltage={summary.lastVoltage} currentSoC={summary.soc} />
                 
                 {dischargeLog.length > 0 && (
                     <DischargeChart 
