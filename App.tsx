@@ -30,7 +30,8 @@ const App: React.FC = () => {
     
     const isForecastingCharge = useMemo(() => {
         if (processedLog.length === 0) return false;
-        const lastRealPoint = processedLog[processedLog.length - 1];
+        // Find the last non-forecast point to determine the mode
+        const lastRealPoint = [...processedLog].reverse().find(p => !p.isForecast);
         return lastRealPoint ? lastRealPoint.charging : false;
     }, [processedLog]);
 

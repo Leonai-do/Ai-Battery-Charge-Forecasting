@@ -33,7 +33,7 @@ const DataLog: React.FC<DataLogProps> = ({ logData, processedLog, onAddRow, onDe
                 <h2 className="text-xl font-semibold">Data Log</h2>
             </div>
             <div className="overflow-x-auto">
-                <table className="w-full min-w-[800px]">
+                <table className="w-full">
                     <thead className="bg-gray-700">
                         <tr>
                             <th className="p-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Date</th>
@@ -48,9 +48,9 @@ const DataLog: React.FC<DataLogProps> = ({ logData, processedLog, onAddRow, onDe
                             <th className="p-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-700">
+                    <tbody className="divide-y divide-gray-700 md:divide-y-0 responsive-table">
                         {logData.map((row, index) => {
-                            const processedEntry = processedLog[index];
+                            const processedEntry = processedLog.find(p => p.dt.getTime() === row.dt.getTime());
                             const isCharging = row.charging;
                             const currentDisplayValue = isCharging 
                                 ? row.milliamps 
@@ -58,12 +58,12 @@ const DataLog: React.FC<DataLogProps> = ({ logData, processedLog, onAddRow, onDe
 
                             return (
                                 <tr key={index} className="hover:bg-gray-900/50">
-                                    <td className="p-1"><input type="date" name="date" value={row.date} onChange={e => handleInputChange(index, e)} className={tableInputClasses} /></td>
-                                    <td className="p-1"><input type="time" name="time" value={row.time} onChange={e => handleInputChange(index, e)} className={tableInputClasses} /></td>
-                                    <td className="p-1"><input type="number" name="voltage" value={row.voltage} onChange={e => handleInputChange(index, e)} className={tableInputClasses} step="0.01" /></td>
-                                    <td className="p-1"><input type="number" name="watts" value={row.watts} onChange={e => handleInputChange(index, e)} className={tableInputClasses} step="0.1" /></td>
-                                    <td className="p-1"><input type="number" name="inputVoltage" value={row.inputVoltage} onChange={e => handleInputChange(index, e)} className={tableInputClasses} step="0.1" /></td>
-                                    <td className="p-1">
+                                    <td data-label="Date" className="p-1"><input type="date" name="date" value={row.date} onChange={e => handleInputChange(index, e)} className={tableInputClasses} /></td>
+                                    <td data-label="Time" className="p-1"><input type="time" name="time" value={row.time} onChange={e => handleInputChange(index, e)} className={tableInputClasses} /></td>
+                                    <td data-label="Voltage (V)" className="p-1"><input type="number" name="voltage" value={row.voltage} onChange={e => handleInputChange(index, e)} className={tableInputClasses} step="0.01" /></td>
+                                    <td data-label="Consumption (W)" className="p-1"><input type="number" name="watts" value={row.watts} onChange={e => handleInputChange(index, e)} className={tableInputClasses} step="0.1" /></td>
+                                    <td data-label="Input (V)" className="p-1"><input type="number" name="inputVoltage" value={row.inputVoltage} onChange={e => handleInputChange(index, e)} className={tableInputClasses} step="0.1" /></td>
+                                    <td data-label="Charge Current (mA)" className="p-1">
                                         <input 
                                             type="number" 
                                             name="milliamps" 
@@ -75,14 +75,14 @@ const DataLog: React.FC<DataLogProps> = ({ logData, processedLog, onAddRow, onDe
                                             title={isCharging ? "Enter charge current in mA" : "Calculated discharge current"}
                                         />
                                     </td>
-                                    <td className="p-1">
+                                    <td data-label="Charging" className="p-1">
                                         <select name="charging" value={String(row.charging)} onChange={e => handleInputChange(index, e)} className={`${tableInputClasses} bg-gray-800`}>
                                             <option value="false">No</option>
                                             <option value="true">Yes</option>
                                         </select>
                                     </td>
-                                    <td className="p-1 text-center">
-                                        <button onClick={() => onDeleteRow(index)} className="p-2 text-white bg-red-600 rounded hover:bg-red-700 transition-colors">X</button>
+                                    <td data-label="Actions" className="p-1 text-center md:text-center">
+                                        <button onClick={() => onDeleteRow(index)} className="p-2 text-white bg-red-600 rounded hover:bg-red-700 transition-colors w-full md:w-auto">X</button>
                                     </td>
                                 </tr>
                             );
